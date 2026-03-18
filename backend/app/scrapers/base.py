@@ -11,6 +11,18 @@ import httpx
 from app.models import Product
 
 
+def parse_price(value: str) -> float | None:
+    if not value:
+        return None
+    cleaned = re.sub(r"[^0-9.]", "", str(value))
+    if not cleaned:
+        return None
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
 class ScraperTransportError(RuntimeError):
     def __init__(
         self,

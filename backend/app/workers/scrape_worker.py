@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 import asyncio
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-from app.scrapers.base import BaseScraper
-from app.scrapers.base import ScraperTransportError
+if TYPE_CHECKING:
+    from app.scrapers.blinkit_scraper import BlinkitScraper
+    from app.scrapers.instamart_scraper import InstamartScraper
+
+ScraperType = "BlinkitScraper | InstamartScraper"
 
 
 async def run_scraper_worker(
-    scraper: BaseScraper,
+    scraper: ScraperType,
     item: str,
     pincode: str,
     queue: asyncio.Queue[dict[str, Any]],
@@ -34,17 +37,6 @@ async def run_scraper_worker(
                 continue
 
             error_message = str(last_exception)
-            if isinstance(last_exception, ScraperTransportError):
-                status = (
-                    f" status={last_exception.status_code}"
-                    if last_exception.status_code is not None
-                    else ""
-                )
-                error_message = (
-                    f"provider_error category={last_exception.category}{status}: "
-                    f"{last_exception}"
-                )
-
             await queue.put(
                 {
                     "type": "platform_error",
