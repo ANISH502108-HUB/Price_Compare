@@ -13,17 +13,13 @@ Users can search for a product and instantly see which platform offers the lowes
 
 # Project Goal
 
-This project is a **beginner full-stack learning project** designed to demonstrate:
+This project explores real-world multi-agent system design for real-time price 
+comparison across quick-commerce platforms. It demonstrates:
 
-- web scraping
+- autonomous scraper agent coordination
 - async backend processing
-- streaming APIs
-- modern frontend development
-- real-world system architecture
-
-The system is **not intended as a production-scale service**.
-
----
+- web scraping and data normalisation
+- streaming APIs and modern frontend development
 
 # Features
 
